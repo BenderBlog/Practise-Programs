@@ -1,0 +1,34 @@
+# Maintainer: SuperBart <superbart_chen@qq.com>
+# Warning: You shall bought a DOOM2.WAD from the power of the Gabe.(My Wallet!)
+
+pkgname=touhoudoom
+pkgver=1
+pkgrel=23
+pkgdesc="A DOOM II Mod Combine the blood of Doom and the fantasy of Touhou"
+arch=('any')
+url="https://github.com/UntitledsTakenNOOOO/TouhouDoom"
+license=('custom')
+depends=('gzdoom' 'doom2-data-steam')
+makedepends=('zip' 'git')
+source=("${pkgname}::git+https://github.com/UntitledsTakenNOOOO/TouhouDoom"
+    ${pkgname}.desktop
+)
+md5sums=('SKIP'
+  '1182faea8b1b19377110ea64d3b560e5')
+
+prepare() {
+  cd "${srcdir}/${pkgname}/pk3"
+  git submodule update --init --recursive
+  msg2 "making pk3 file..."
+  zip -r ${pkgname}.pk3 * .[^.]*
+  mv ${pkgname}.pk3 ../../${pkgname}.pk3
+}
+
+package() {
+  install -Dm644 "${pkgname}.desktop" \
+    "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+  install -Dm644 "${pkgname}.pk3" \
+    "${pkgdir}/usr/share/games/doom/${pkgname}.pk3"
+}
+
+

@@ -1,0 +1,18 @@
+[Desktop Entry]
+Categories=Game
+Comment=A Mod Combine the blood of Doom and the fantasy of Touhou
+Exec=gzdoom -iwad DOOM2.WAD -file /usr/share/games/doom/touhoudoom.pk3
+GenericName=
+Icon=gzdoom
+MimeType=
+Name=Touhou Doom
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=1.0
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
