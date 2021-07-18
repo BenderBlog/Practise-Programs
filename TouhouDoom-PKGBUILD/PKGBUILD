@@ -1,4 +1,4 @@
-# Maintainer: SuperBart <superbart_chen@qq.com>
+# Maintainer: SuperBart <superbart_chen at qq dot com>
 
 pkgname=touhoudoom
 pkgver=1
@@ -22,8 +22,7 @@ md5sums=('SKIP'
 
 prepare() {
   cd "${srcdir}/${pkgname}/pk3"
-  git submodule update --init --recursive
-  msg2 "making pk3 file..."
+  git submodule update --init --recursive\
   zip -r ${pkgname}.pk3 * .[^.]*
   mv ${pkgname}.pk3 ../../${pkgname}.pk3
 }
