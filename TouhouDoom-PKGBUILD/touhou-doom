@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [ -z "$XDG_CONFIG_HOME" ]; then
     XDG_CONFIG_HOME="$HOME/.config"
 fi
@@ -10,9 +11,15 @@ if  [ ! -f "$XDG_CONFIG_HOME/touhoudoom/gzdoom.ini" ]; then
     cp "/usr/share/games/doom/gzdoom-touhou.ini" "$XDG_CONFIG_HOME/touhoudoom/gzdoom.ini"
 fi
 
-if  [ -f "/usr/share/games/doom/DOOM2.WAD" ] || [ -f "/usr/share/doom/DOOM2.WAD" ]; then
-    iwad="DOOM2.WAD"
-else
+for i in {'DOOM2.WAD','TNT.WAD','PLUTONIA.WAD'}
+do
+    if  [ -f "/usr/share/games/doom/$i" ] || [ -f "/usr/share/doom/$i" ] || [ -f "$XDG_CONFIG_HOME/gzdoom/$i" ] ||  [ -f "$XDG_CONFIG_HOME/touhoudoom/$i" ] ; then
+        iwad=$i
+        break
+    fi
+done
+
+if [ -z "$iwad" ] ; then
     iwad="freedoom2.wad"
 fi
 
