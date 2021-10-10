@@ -1,0 +1,25 @@
+#define Polynomial List
+ADT Polynomial {
+    数据对象: D = { a[i] | a[i] 属于 ElemSet， i = 1,2,...,n, n>=0 }
+    数据关系: Rl = { a[i] | a[i] 属于 ElemSet， i = 1,2,...,n, n>=0 }
+    基本操作：
+        InitPolynomial(&L);
+          操作结果：构造一个多项式L
+          注意：由于C语言貌似对函数传来传回有点让人难以理解，这段代码在main函数
+        AddNode(&L,position,coeffient,exponent);
+          初始条件：L存在
+          操作结果：在L的position位置之前插入一个元素，里面存有传入的两个元素
+        ConnectPolynomial(&L,&M,check);
+          初始条件：L和M都存在
+          操作结果：回复一个连接过的多项式，依照check结果对M多项式中系数处理
+                  1不做处理，2进行取负
+        OrderPolynomial(&L);
+          初始条件：L存在
+          操作结果：将该多项式按照指数从大到小的顺序排序
+        Calculate(&L,&M,check);
+          初始条件：L存在
+          操作结果：计算两个多项式，check为1时，不做处理，2进行取负
+        ListPolynomial(&L);
+          初始条件：L存在
+          操作结果：列出整个多项式，如为空，输出"empty list"
+} ADT Polynomial
