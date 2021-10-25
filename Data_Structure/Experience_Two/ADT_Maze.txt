@@ -1,0 +1,20 @@
+#define Road Stack
+#define Stack Link
+ADT Road {
+    数据对象: D = { a[i] | a[i] 属于 ElemSet， i = 1,2,...,n, n>=0 }
+    数据关系: Rl = { a[i] | a[i] 属于 ElemSet， i = 1,2,...,n, n>=0 }
+    基本操作：
+        Init(&L);
+          操作结果：构造一个路径L
+          注意：C语言中，构造栈的函数返回值应该设为数据类型，而不是int
+        Push(&L,ElemType a);
+          操作结果：在路径栈中压入新的节点
+        Gettop(&L);
+          操作结果：返回路径栈中最后一个节点的数据
+        Pop(&L);
+          操作结果：弹出并删除路径栈中最后一个节点
+        IsEmpty(&L);
+          操作结果：返回栈是否为空栈
+        List(&L);
+          操作结果：由栈底到栈顶读出栈里的元素
+} ADT Road
