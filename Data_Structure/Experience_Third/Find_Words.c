@@ -4,7 +4,7 @@
  * However, I strongly suggest everyone to translate my comments into Chinese.
  */
 
-/* I use the KMP algorithm in the program.
+/* I use the KMP algorithm in this program.
  * However, you could write a simpler string match algorithm because it's more convenient.
  */
 
@@ -39,6 +39,13 @@ int main(){
     // Core code, look for KMP.c
     while(fgets(string,1000,passage) != NULL){
        // Actually simple algorithm is fine.
+       gotcha += StrCmp_KMP(string,find,line);
+       // I believe only thinking about the first charactor is useful.
+       if (find[0] >= 'a' && find[0] <= 'z'){
+           find[0] = find[0] + 'A' - 'a';
+       } else if (find[0] >= 'A' && find[0] <= 'Z'){
+           find[0] = find[0] + 'a' - 'A';
+       }
        gotcha += StrCmp_KMP(string,find,line);
        line++;
     }

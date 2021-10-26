@@ -1,4 +1,4 @@
-/* A KMP string match algorithm library implement written by SuperBart.
+/* A KMP string match algorithm library implemention written by SuperBart.
  * Copyright (c) 2021 Chen Songze
  * Everyone is premitted to use these code in terms of The Unlicense.
  * However, I strongly suggest everyone to translate my comments into Chinese.
@@ -39,8 +39,13 @@ int StrCmp_KMP(char * line, char * toMatch, int numberOfLine){
         }
         if ( j == StrLen(toMatch) ){
             // If found, print out the position, and look for the next.
-            printf("%s在第%d行%d列出现\n",toMatch,numberOfLine,i-j+1);
-            appearence += 1;
+            // Since teacher want word match, I have to think about the space...
+            if (( line[i] == ' ' && line[i-j-1] == ' ' && i - j != 0 && i != StrLen(line) - 1 ) ||
+                ( i - j == 0 && line[i] == ' ' ) ||
+                ( i == StrLen(line) && line[i-j-1] == ' ' ) ){
+                printf("%s在第%d行%d列出现\n",toMatch,numberOfLine,i-j+1);
+                appearence += 1;
+            }
             j = next[j-1];
         }
     }
