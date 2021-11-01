@@ -5,6 +5,13 @@
  */
 #include "KMP.h" 
 
+// Eval the charactors, if UP return 1, if low return 2, else return 0.
+int charEval(char toEval){
+    if (toEval >= 'A' &&  toEval <= 'Z') return 1;
+    else if (toEval >= 'a' && toEval <= 'z') return 2;
+    else return 0;
+}
+
 // Look for the length of string, since no <string.h> is allowed to use.
 int StrLen(char * toMatch){
     int length = 0;
@@ -40,9 +47,10 @@ int StrCmp_KMP(char * line, char * toMatch, int numberOfLine){
         if ( j == StrLen(toMatch) ){
             // If found, print out the position, and look for the next.
             // Since teacher want word match, I have to think about the space...
-            if (( line[i] == ' ' && line[i-j-1] == ' ' && i - j != 0 && i != StrLen(line) - 1 ) ||
-                ( i - j == 0 && line[i] == ' ' ) ||
-                ( i == StrLen(line) && line[i-j-1] == ' ' ) ){
+            // Note that the last charactor in the line is '\n' or '\0'
+            // Only think about the begin charactor is fine.
+            if (( charEval(line[i]) == 0 && charEval(line[i-j-1]) == 0 && i - j != 0) ||
+                ( i - j == 0 && charEval(line[i]) == 0 )){
                 printf("%s在第%d行%d列出现\n",toMatch,numberOfLine,i-j+1);
                 appearence += 1;
             }

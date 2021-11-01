@@ -41,9 +41,9 @@ int main(){
        // Actually simple algorithm is fine.
        gotcha += StrCmp_KMP(string,find,line);
        // I believe only thinking about the first charactor is useful.
-       if (find[0] >= 'a' && find[0] <= 'z'){
+       if (charEval(find[0]) == 2){
            find[0] = find[0] + 'A' - 'a';
-       } else if (find[0] >= 'A' && find[0] <= 'Z'){
+       } else if (charEval(find[0]) == 1){
            find[0] = find[0] + 'a' - 'A';
        }
        gotcha += StrCmp_KMP(string,find,line);

@@ -14,6 +14,7 @@
 #define ERROR 1
 #define OK 0
 
+int charEval(char toEval);
 int StrLen(char * toMatch);
 int StrCmp_KMP(char * line, char * toMatch, int numberOfLine);
 
