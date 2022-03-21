@@ -15,8 +15,8 @@ int main(){
     int (&d)[5] = c;
     // A pointer to an array of char strings.
     string str[3] = {"Barry", "Robin", "Maurice"};
-    // an refrence of a string array,
-    // not an array of refrences of string.
+    // an array of a string array,
+    // not an array of a string point.
     string (*pstr)[3] = &str;
     // A pointer to a pointer of a char.
     char **c = &p;
