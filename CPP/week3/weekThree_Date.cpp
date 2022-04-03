@@ -1,12 +1,14 @@
-#include<iostream>
-#include<string>
-#include<ctime>
+#include <iostream>
+#include <string>
+#include <ctime>
 using namespace std;
 
-char const * calender[12] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+char const *calender[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
-int main(){
-    struct Date{
+int main()
+{
+    struct Date
+    {
         int year;
         string month;
         int day;
@@ -16,10 +18,9 @@ int main(){
     string input;
     cin >> input;
     output = {
-                stoi(input.substr(0,4)),
-                calender[stoi(input.substr(5,1)) + 1],
-                stoi(input.substr(8,2)) 
-            };
+        stoi(input.substr(0, 4)),
+        calender[stoi(input.substr(5, 1)) + 1],
+        stoi(input.substr(8, 2))};
     cout << "Year: " << output.year << ", Month: " << output.month << ", Day: " << output.day << endl;
 }
 
