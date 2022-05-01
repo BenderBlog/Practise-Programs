@@ -208,8 +208,10 @@ void error(const char *format, ...)
     return (count + m_day) % 7;
   }
   ```
+
   3. `void nextWeek()`
   	先强制加一，然后累加到是周一了。
+
   ```C
   void Date::nextWeek()
   {
@@ -219,9 +221,9 @@ void error(const char *format, ...)
         addDay();
     }
   }
-```
 
 ## 测试用例与测试结果
+
 2. 根据已定链表树的数据结构，写一个对字符串的二叉排序树。
 ```bash
 [superbart@superbart-laptop source_2_2]$ make && ./out
