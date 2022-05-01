@@ -74,6 +74,7 @@ namespace sortTree
     // Show the Tree aka sort with
     void tree::showTree()
     {
+        cout << endl << "Showing..." << endl;
         if (m_T)
         {
             forShow(m_T);
@@ -87,6 +88,7 @@ namespace sortTree
     // Show the Tree aka sort with
     void tree::sort()
     {
+        cout << endl << "Sorting..." << endl;
         if (m_T)
         {
             forSort(m_T);

@@ -1,3 +1,13 @@
+/* 5.9[13]
+ * Define a struct Date to keep track of dates.
+ * Provide functions that read Dates from input,
+ * write Date es to output,and initialize a Date with a date.
+ * 7.10[19]
+ * Write functions to add one day, one month, and one year to a Date as defined in §5.9[13].
+ * Write a function that gives the day of the week for a given Date.
+ * Write a function that gives the Date of the first Monday following a given Date.
+ */
+
 #ifndef _DATE_
 #define _DATE_
 
@@ -9,6 +19,10 @@
 #include <string>
 #endif
 
+#ifndef _CMATH_
+#include <cmath>
+#endif
+
 namespace date
 {
     using namespace std;
@@ -18,30 +32,10 @@ namespace date
         int m_year;
         int m_month;
         int m_day;
-        bool isLeap()
-        {
-            if ((m_year % 4 == 0 && m_year % 100 != 0) || m_year % 400 == 0)
-                return true;
-            else
-                return false;
-        }
-        int dayInMonth(int month)
-        {
-            bool special = isLeap();
-            if (month == 2 && special == true)
-                return 29;
-            else if (month == 2 && special == false)
-                return 28;
-            else if (month == 1 || month == 3 || month == 5 ||
-                     month == 7 || month == 8 || month == 10 || month == 12)
-                return 31;
-            else
-                return 30;
-        }
-        int dayInYear()
-        {
-            return isLeap() ? 366 : 365;
-        }
+        bool isLeap() const;
+        int dayInMonth() const;
+        int dayInYear() const;
+        int startWeek() const;
 
     public:
         Date(int year = 1970, int month = 1, int day = 1);
@@ -50,83 +44,15 @@ namespace date
         void addMonth();
         void addYear();
         int evalWeek();
-        void printNextWeek();
+        friend ostream &operator<<(ostream &os, const Date &here);
+        void nextWeek();
     };
 
-    Date::Date(int year, int month, int day)
+    inline ostream &operator<<(ostream &os, const Date &here)
     {
-        m_year = year;
-        m_month = month;
-        m_day = day;
+        os << here.m_year << "-" << here.m_month << "-" << here.m_day << endl;
+        return os;
     }
-
-    void Date::print()
-    {
-        cout << m_year << " - " << m_month << " - " << m_day << endl;
-    }
-
-    void Date::addYear()
-    {
-        m_year++;
-        if (m_day == 29)
-            m_day = 28;
-        else if (m_day == 28 && isLeap())
-            m_day = 29;
-    }
-
-    void Date::addMonth()
-    {
-        /*
-         *  1->2    31->29/28
-         *  2->3    -
-         *  3->4    31->30
-         *  4->5    -
-         *  5->6    31->30
-         *  6->7    -
-         *  7->8    -
-         *  8->9    31->30
-         *  9->10   -
-         *  10->11  31->30
-         *  11->12  -
-         *  12->1   year++
-         */
-        switch (m_month)
-        {
-        case 12:
-            m_year++;
-            m_month = 1;
-            break;
-        case 1:
-            if (isLeap() && m_day > 29)
-                m_day = 29;
-            else if (m_day > 28)
-                m_day = 28;
-            m_month++;
-            break;
-        case 3:
-        case 5:
-        case 8:
-        case 10:
-            if (m_day > 30)
-                m_day = 30;
-            m_month++;
-            break;
-        default:
-            m_month++;
-        }
-    }
-
-    void Date::addDay()
-    {
-        m_day++;
-        if (m_day > dayInMonth(m_month))
-        {
-            addMonth();
-            m_day = 1;
-        }
-    }
-
-    // To be implement: eval / getnextweek
 }
 
 #endif
