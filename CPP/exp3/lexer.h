@@ -22,15 +22,18 @@ namespace Lexer {
     extern double number_value;//save NUMBER's value
     extern string string_value;//save NAME's value
 
+    extern bool hasfault;
     extern istream *input;// input stream controller
     extern vector<string> fileNames;
 
     extern Token_value get_token();//input
 
-    extern int parseCommandLine(int argc, char *argv[]);
+    extern int parseCommandLine(int argc, char **argv);
 
     extern int switch_input();
 
     extern void skip();
+    extern char lastMemory; // Last char get from input
+    extern int lines; // How many line had we read?
 }
 #endif //LEXER_H

@@ -1,8 +1,7 @@
 # Usage: make
 
 # Use clang as compilor, and lld as linker.
-CC = clang++
-CFLAGS = -fuse-ld=lld
+CC = g++
 target = out
 
 # Get the *.cpp file, and then generate *.o file.
