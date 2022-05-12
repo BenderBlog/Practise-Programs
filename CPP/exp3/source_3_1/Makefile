@@ -12,6 +12,7 @@ OBJ = $(patsubst %.cpp, %.o, $(SRC))
 # Link object file into executable file.
 $(target):$(OBJ)
 	$(CC) $^ -o $@
+	rm -rf *.o
 
 # Compile every cpp file to object file.
 # aka *.o file in *Linux*

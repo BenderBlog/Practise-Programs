@@ -1,0 +1,80 @@
+diff a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+--- a/arch/x86/entry/syscalls/syscall_64.tbl
++++ b/arch/x86/entry/syscalls/syscall_64.tbl
+@@ -372,6 +372,7 @@
+ 448	common	process_mrelease	sys_process_mrelease
+ 449	common	futex_waitv		sys_futex_waitv
+ 450	common	set_mempolicy_home_node	sys_set_mempolicy_home_node
++451	common	os_exp	sys_os_exp
+ 
+ #
+ # Due to a historical design error, certain syscalls are numbered differently
+
+diff a/include/linux/syscalls.h b/include/linux/syscalls.h
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -1280,6 +1280,9 @@
+  */
+ asmlinkage long sys_ni_syscall(void);
+ 
++/*User add system call here*/
++asmlinkage long sys_os_exp(unsigned int id);
++
+ #endif /* CONFIG_ARCH_HAS_SYSCALL_WRAPPER */
+ 
+ 
+diff a/include/uapi/asm-generic/unistd.h b/include/uapi/asm-generic/unistd.h
+--- a/include/uapi/asm-generic/unistd.h
++++ b/include/uapi/asm-generic/unistd.h
+@@ -886,9 +886,10 @@
+ #define __NR_set_mempolicy_home_node 450
+ __SYSCALL(__NR_set_mempolicy_home_node, sys_set_mempolicy_home_node)
+ 
+-#undef __NR_syscalls
+ #define __NR_syscalls 451
++__SYSCALL(__NR_os_exp, sys_os_exp)
+ 
++#undef __NR_syscalls
+ /*
+  * 32 bit systems traditionally used different
+  * syscalls for off_t and loff_t arguments, while
+
+diff a/kernel/sys.c b/kernel/sys.c
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -2705,6 +2705,24 @@
+ 	return 0;
+ }
+ 
++/* Add New System Call Here */
++SYSCALL_DEFINE1(os_exp, unsigned int, id)
++{
++	// copied from Robotxm
++    long result = 0;
++    int end = ((id % 2 == 0) ? 6 : 5);
++    int i, j;
++    for (i = 0; i < end; i++) {
++        int exp = 1;
++        for (j = 0; j < i; j++) {
++            exp = exp * 10;
++        }
++        result += exp * (id % 10);
++        id /= 10;
++    }
++    return result;
++}
++
+ #ifdef CONFIG_COMPAT
+ struct compat_sysinfo {
+ 	s32 uptime;
+
+diff a/kernel/sys_ni.c b/kernel/sys_ni.c
+--- a/kernel/sys_ni.c
++++ b/kernel/sys_ni.c
+@@ -478,3 +478,6 @@
+ 
+ /* restartable sequence */
+ COND_SYSCALL(rseq);
++
++/* user defined Syscall here */
++COND_SYSCALL(os_exp);
