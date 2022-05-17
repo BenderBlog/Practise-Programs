@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: GPL-2.0-only
  *
- * syscall.c
+ * syscall_module.c
  *
  * The same syscall as experiment 1, but in kernel module.
  *
@@ -146,12 +146,3 @@ module_init(syscall_start);
 module_exit(syscall_end);
 
 MODULE_LICENSE("GPL");
-
-/* Makefile at follow
- * obj-m += syscall.o
- * PWD := $(CURDIR)
- * all:
- * 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
- * clean:
- * 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
- */

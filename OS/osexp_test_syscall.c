@@ -1,5 +1,7 @@
-// Could be used in 5.17 version of the kernel.
-// Syscall numbers may vary!
+/* 2022 SuperBart
+ * SuperBart Public Domain Software License.
+ * Syscall numbers may vary!
+ */
 
 #include<stdio.h>
 #include<unistd.h>
