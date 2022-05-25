@@ -8,7 +8,8 @@
 4. Java: 大一下学期 Java
 5. TouhouDoom-PKGBUILD: 东方毁灭战士游戏PKGBUILD
 6. XDOJ: 大一上计算机导论以及 C 语言
-7. 散装软件
+7. OS: 操作系统代码
+8. 散装软件
 
 ## 授权
 SuperBart Public Domain Software License，你们可以任意使用。

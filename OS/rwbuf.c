@@ -13,6 +13,7 @@
 #include <linux/kernel.h>
 #include <linux/fs.h>
 #include <linux/uaccess.h>
+#include <linux/string.h>
 // 用于 ioctl 命令
 #define RW_CLEAR 0x909090
 // 设备名称
@@ -20,9 +21,10 @@
 // 缓冲区最大长度
 #define RWBUF_MAX_SIZE 1024
 // 当前缓冲区长度，注意设置为 12 是因为要求在内核模块安装完成之后需要立刻能读出学号
+// 注意有终止符
 static int rwlen = 12;
 // 缓冲区，初始值需要是学号以便能在设备安装后立刻读出
-static char rwbuf[RWBUF_MAX_SIZE] = "12345678901";
+static char rwbuf[RWBUF_MAX_SIZE] = "20009200493";
 // 锁机制，保证只能有一个打开的设备。0 为未打开，1 为已打开
 static int inuse = 0;
 /**
@@ -64,9 +66,16 @@ ssize_t rwbuf_read(struct file *file, char *buf, size_t count, loff_t *f_pos)
 {
     if (rwlen > 0 && rwlen <= RWBUF_MAX_SIZE)
     {
+        printk("[rwbuf] Current rwbuf size is %ld, rwlen = %d.\n", strlen(rwbuf), rwlen);
         copy_to_user(buf, rwbuf, count);
         printk("[rwbuf] Read successful. After reading, rwlen = %d\n", rwlen);
+        // 这里原先是想写个 0 的，以满足 cat 命令退出的需求。但是每次一执行 cat /dev/rwbuf 就报错。
+        // 所以还是保持原样吧
         return count;
+    }
+    else if(rwlen == 0){
+    	printk("[rwbuf] Read failed. Empty.");
+    	return 0;
     }
     else
     {
@@ -84,8 +93,20 @@ ssize_t rwbuf_write(struct file *file, const char *buf, size_t count, loff_t *f_
 {
     if (count > 0)
     {
-        copy_from_user(rwbuf, buf, count > RWBUF_MAX_SIZE ? RWBUF_MAX_SIZE : count);
-        rwlen = count > RWBUF_MAX_SIZE ? RWBUF_MAX_SIZE : count;
+    	//丢弃超越上限的部分
+        if (count > RWBUF_MAX_SIZE - 1)
+        {
+            printk("[rwbuf] Input overflow! Count is %lu, larger than %d.\n",count,RWBUF_MAX_SIZE - 1);
+            rwlen = RWBUF_MAX_SIZE - 1;
+        }
+        else
+        {
+            rwlen = count;
+        }
+        //读取成功返回0，否则是还差多少，就这样吧......
+        //报错说忽略了返回值
+        copy_from_user(rwbuf, buf, rwlen);
+        rwbuf[rwlen]='\0'; //不得不留一位给\0
         printk("[rwbuf] Write successful. After writing, rwlen = %d\n", rwlen);
         return count;
     }
@@ -117,13 +138,14 @@ long rwbuf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
     }
 }
 static struct file_operations rwbuf_fops =
-    {
-        open : rwbuf_open,
-        release : rwbuf_release,
-        read : rwbuf_read,
-        write : rwbuf_write,
-        unlocked_ioctl : rwbuf_ioctl
-    };
+{
+    open : rwbuf_open,
+    // 没这玩意卸载不了模块
+    release : rwbuf_release,
+    read : rwbuf_read,
+    write : rwbuf_write,
+    unlocked_ioctl : rwbuf_ioctl
+};
 static int __init rwbuf_init(void)
 {
     int ret = -1;
