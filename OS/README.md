@@ -81,7 +81,7 @@ SYSCALL_DEFINE1(os_exp, unsigned int, id)
 4. 选做题的实现关键步骤，以及这些步骤的作用。
    * 相关函数介绍：
    
-     ![](./pcb_get_explation.png)
+     ![](https://raw.githubusercontent.com/BenderBlog/Practise-Programs/main/OS/pcb_get_explation.png)
    
    * 过程分析：打开/新建文件，新建缓冲区。遍历所有的进程，检查进程控制块中里面的 comm 成分，如果和待寻找的相同，读取其信息，写入到缓冲区中。最后将缓冲区写入到文件中。
    
