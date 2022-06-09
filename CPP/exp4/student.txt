@@ -1,0 +1,8 @@
+Maurice		1	2100101	46	2	Electronic
+Barry		1	2100102	60	0	Computer
+Robin		0	2000103	70	0	Computer
+Tony		1	2000104	80	0	Computer
+Rutherford		0	2000106	90	0	Software
+Phil		0	2000107	100	0	Software
+Gaburil		1	2000108	110	0	Security
+Hackett		0	2000109	118	1	Communication

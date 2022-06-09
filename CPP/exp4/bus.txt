@@ -1,0 +1,6 @@
+Maggie	1	0
+Bender	6	1
+Homer	3	1
+Marge	4	0
+Bart	2	1
+Lisa	5	0
