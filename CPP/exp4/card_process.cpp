@@ -1,8 +1,15 @@
-// 2022 SuperBart, Released under SuperBart Public Domain Software License
-// This file is a part of a simulation program.
-//  card_process.cpp
-//  Implementation of card_process.hpp
-
+/**
+ * 2022 SuperBart, this is an absolutely free software released under
+ * SuperBart Public Domain Software License.
+ * You may gain a copy of this from https://benderblog.github.io/License.html
+ *
+ * This header file is a part of College ID Card and College Bus Simulation Program.
+ *
+ * card_process.cpp
+ * Description:
+ *      Implemention of card_process.hpp. I think code them separately is better.
+ *
+ */
 #include "card_process.hpp"
 using namespace maggie;
 
@@ -54,6 +61,7 @@ void card_process::add_cards()
         students.push_back(to_append);
         cout << "成功创建。\n";
     }
+    // Student information.
     else if (id == 3)
     {
         resident to_append(name, sex_inter, time(0), 0, 0);
@@ -69,7 +77,7 @@ void card_process::add_cards()
 
 void card_process::card_management()
 {
-    unsigned short y;
+    ushort y;
     cout << "选1办理新卡，选2充值业务，选3查询余额，选4查询已使用次数，选5注销卡，选6列出所有卡片，选0退出\n";
     while (cin >> y && y != 0)
     {

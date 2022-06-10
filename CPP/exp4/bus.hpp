@@ -1,7 +1,15 @@
-// 2022 SuperBart, Released under SuperBart Public Domain Software License
-// This file is a part of a simulation program.
-//  bus.hpp
-//  Contains a bus class.
+/**
+ * 2022 SuperBart, this is an absolutely free software released under
+ * SuperBart Public Domain Software License.
+ * You may gain a copy of this from https://benderblog.github.io/License.html
+ *
+ * This header file is a part of College ID Card and College Bus Simulation Program.
+ *
+ * bus.hpp
+ * Description:
+ *      A College Bus class. I believe I have written all the information clearly.
+ *
+ */
 
 #ifndef _BUS_
 #define _BUS_
@@ -9,14 +17,14 @@
 #include "maggie.hpp"
 #endif
 
-#include "card_process.hpp"
 using namespace maggie;
+
 class bus
 {
 private:
     string driver;      // driver's name
     uint id;            // bus's id
-    bool model;         // bus's model
+    bool model;         // bus's model, if ture, it's a big bus, otherwise, it's a small bus.
     uint onboard_id;    // the person who on the bus
     uint offtime;       // the time when the bus is off
     uint onboard_count; // the number of people on the bus

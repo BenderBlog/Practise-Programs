@@ -1,7 +1,15 @@
-// 2022 SuperBart, Released under SuperBart Public Domain Software License
-// This file is a part of a simulation program.
-//  main.cpp
-//  Main formula including a pretty dumb simulation program.
+/**
+ * 2022 SuperBart, this is an absolutely free software released under
+ * SuperBart Public Domain Software License.
+ * You may gain a copy of this from https://benderblog.github.io/License.html
+ *
+ * This header file is a part of College ID Card and College Bus Simulation Program.
+ *
+ * card_process.cpp
+ * Description:
+ *      Main formula including a pretty dumb simulation program.
+ *
+ */
 #include "bus.hpp"
 #include "card.hpp"
 #include "card_process.hpp"
@@ -65,7 +73,11 @@ int simulation()
                     {
                         uniform_int_distribution<uint> u3(0, cards.teachers.size() - 1);
                         teacher &to_deal = cards.teachers[u3(e)];
-                        if ((*i).onboard(to_deal.get_id()))
+                        if (to_deal.get_onbus() != -1)
+                        {
+                            cout << to_deal.get_name() << "老师上车了。\n";
+                        }
+                        else if ((*i).onboard(to_deal.get_id()))
                         {
                             to_deal.set_times(1);
                             cout << "班车" << (*i).get_id() << "上了" << to_deal.get_name() << "老师\n";
@@ -80,7 +92,11 @@ int simulation()
                     {
                         uniform_int_distribution<uint> u3(0, cards.students.size() - 1);
                         student &to_deal = cards.students[u3(e)];
-                        if (to_deal.pay())
+                        if (to_deal.get_onbus() != -1)
+                        {
+                            cout << to_deal.get_name() << "学生上车了。\n";
+                        }
+                        else if (to_deal.pay())
                         {
                             if ((*i).onboard(to_deal.get_id()))
                             {
@@ -98,7 +114,11 @@ int simulation()
                     {
                         uniform_int_distribution<uint> u3(0, cards.residents.size() - 1);
                         resident &to_deal = cards.residents[u3(e)];
-                        if (to_deal.pay())
+                        if (to_deal.get_onbus() != -1)
+                        {
+                            cout << to_deal.get_name() << "家属上车了。\n";
+                        }
+                        else if (to_deal.pay())
                         {
                             if ((*i).onboard(to_deal.get_id()))
                             {

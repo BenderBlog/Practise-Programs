@@ -1,7 +1,19 @@
-// 2022 SuperBart, Released under SuperBart Public Domain Software License
-// This file is a part of a simulation program.
-//  card.hpp
-//  Contains serveral class related to a card.
+/**
+ * 2022 SuperBart, this is an absolutely free software released under
+ * SuperBart Public Domain Software License.
+ * You may gain a copy of this from https://benderblog.github.io/License.html
+ *
+ * This header file is a part of College ID Card and College Bus Simulation Program.
+ *
+ * card.hpp
+ * Description:
+ *      A College ID Card have three elements:
+ *        1. Basic information: every card needs this, contains name, id, etc.
+ *        2. Insitute information: resident does not need this.
+ *        3. Pocket information: actually wallet, teacher does not need this.
+ *      You may get three kinds of cards from these elements. Student got them all.
+ *
+ */
 
 #ifndef _CARD_HPP_
 #define _CARD_HPP_
@@ -10,7 +22,8 @@
 #endif
 
 using namespace maggie;
-// Following two should be used as interface.
+
+// Following two class should be used as interface.
 class insitute
 {
 private:
@@ -18,9 +31,10 @@ private:
 
 public:
     insitute(string _segood) { segood = _segood; };
-    const string get_insitute() { return segood; };
+    const string get_insitute() const { return segood; };
 };
 
+// Actually "wallet" is more proper 233
 class pocket
 {
 private:
@@ -28,8 +42,10 @@ private:
 
 public:
     pocket(uint _money) { money = _money; };
-    const uint get_money() { return money; };
+    uint get_money() const { return money; };
+    // Charge your pocket.
     void set_money(uint _money) { money += _money; };
+    // Pay for the ticket.
     virtual bool pay() = 0;
 };
 
@@ -52,17 +68,19 @@ public:
         onbus = -1;
     }
     // Basic information
-    const string get_name() { return name; };
-    const bool get_sex() { return sex; };
+    string get_name() const { return name; };
+    bool get_sex() const { return sex; };
     long get_id() const { return id; };
     // Times
-    const uint get_times() { return times; };
+    uint get_times() const { return times; };
     void set_times(uint add) { times += add; };
     void clear_times() { times = 0; };
     // Is on bus?
     void set_onbus(int a) { onbus = a; };
     void getoff_bus() { onbus = 0; };
-    const int get_onbus() { return onbus; };
+    int get_onbus() const { return onbus; };
+    // Print
+    virtual string print() = 0;
 }; // class card
 
 // Teachers do not need money.
@@ -83,11 +101,12 @@ public:
            << endl;
         return ss.str();
     }
+    // For find() formula from stl algorithm.
     bool operator==(const teacher &ps)
     {
         return ps.get_id() == get_id();
     }
-}; // class teacher
+};
 
 // Resident does not belong to any insitute.
 // Input value: name, (bool)sex, id, money, times

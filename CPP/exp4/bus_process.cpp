@@ -1,7 +1,15 @@
-// 2022 SuperBart, Released under SuperBart Public Domain Software License
-// This file is a part of a simulation program.
-//  bus_process.cpp
-//  Implementation of bus_process.hpp
+/**
+ * 2022 SuperBart, this is an absolutely free software released under
+ * SuperBart Public Domain Software License.
+ * You may gain a copy of this from https://benderblog.github.io/License.html
+ *
+ * This header file is a part of College ID Card and College Bus Simulation Program.
+ *
+ * bus_process.cpp
+ * Description:
+ *      Implemention of bus_process.hpp. I think code them separately is better.
+ *
+ */
 
 #include "bus_process.hpp"
 using namespace maggie;
@@ -48,9 +56,9 @@ void bus_process::bus_management()
 
 void bus_process::list_bus(vector<bus> &list)
 {
-    for (auto i = list.begin(); i < list.end(); ++i)
+    for (auto &i : list)
     {
-        cout << (*i).print();
+        cout << i.print();
     }
 }
 
@@ -63,7 +71,6 @@ void bus_process::read_station()
         cout << "文件打开失败\n";
         return;
     }
-    // bus(string _driver, uint _id, bool _model)
     string b_driver;
     uint b_id;
     bool b_model;
