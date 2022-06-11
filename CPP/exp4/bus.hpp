@@ -43,6 +43,7 @@ public:
     // basic bus information
     string get_driver() const { return driver; }
     uint get_id() const { return id; };
+    bool operator==(const bus &ps) { return ps.get_id() == get_id(); }
     uint get_max() const { return model ? 50 : 30; }
     string print()
     {

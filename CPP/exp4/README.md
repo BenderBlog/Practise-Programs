@@ -150,11 +150,428 @@ struct bus_process
 顺便说一句，`random`库还能支持你在概率论课程上学到的所有玩意，比如万恶的正态分布，泊松分布啥的。
 
 ## 运行片断
-TODO
+
+###  一卡通管理
+```bash
+[superbart@superbart-laptop exp4]$ ./out 
+Reading cardlist...
+Reading bus...
+1.管理班车
+2.管理卡
+3.运行模拟
+0.退出
+2
+选1办理新卡，选2充值业务，选3查询余额，选4查询已使用次数，选5注销卡，选6列出所有卡片，选0退出
+6
+Teachers
+name            sex     id      times   insitute
+Reality         1       10010   2       Marx
+History         0       10011   1       Marx
+Patchouli               0       10012   0       Software
+Students
+name            sex     id      money   times   insitute
+Maurice         1       2100101 46      2       Electronic
+Barry           1       2100102 60      0       Computer
+Robin           0       2000103 70      0       Computer
+Tony            1       2000104 80      0       Computer
+Rutherford              0       2000106 90      0       Software
+Phil            0       2000107 100     0       Software
+Gaburil         1       2000108 110     0       Security
+Hackett         0       2000109 118     1       Communication
+Residents
+name            sex     id      money   times
+Clapton         0       1654788908      50      2
+Baker           0       1654789794      30      2
+```
+### 班车模拟
+```bash
+1.管理班车
+2.管理卡
+3.运行模拟
+0.退出
+1
+1. 新建班车
+2. 查看班车
+0. 退出
+2
+Maggie  1       0
+Bender  6       1
+Homer   3       1
+Marge   4       0
+Bart    2       1
+Lisa    5       0
+```
+### 运行模拟
+```bash
+[superbart@superbart-laptop exp4]$ ./out 
+Reading cardlist...
+Reading bus...
+1.管理班车
+2.管理卡
+3.运行模拟
+0.退出
+3
+====模拟开始====
+Maggie的班车离站时间设定为10点
+Bender的班车离站时间设定为11点
+Homer的班车离站时间设定为16点
+Marge的班车离站时间设定为9点
+Bart的班车离站时间设定为14点
+Lisa的班车离站时间设定为10点
+
+现在开始模拟
+目前时间是6点
+进站侦测，一共有0辆车
+离站侦测
+5.Evaling Lisa
+4.Evaling Bart
+3.Evaling Marge
+2.Evaling Homer
+1.Evaling Bender
+0.Evaling Maggie
+正在车站的车有6辆：
+Maggie  1       0
+Bender  6       1
+Homer   3       1
+Marge   4       0
+Bart    2       1
+Lisa    5       0
+正在运行的车有0辆：
+
+目前时间是7点
+进站侦测，一共有0辆车
+离站侦测
+5.Evaling Lisa
+4.Evaling Bart
+3.Evaling Marge
+2.Evaling Homer
+1.Evaling Bender
+0.Evaling Maggie
+正在车站的车有6辆：
+Maggie  1       0
+Bender  6       1
+Homer   3       1
+Marge   4       0
+Bart    2       1
+Lisa    5       0
+正在运行的车有0辆：
+
+目前时间是8点
+进站侦测，一共有0辆车
+离站侦测
+5.Evaling Lisa
+4.Evaling Bart
+3.Evaling Marge
+2.Evaling Homer
+1.Evaling Bender
+0.Evaling Maggie
+正在车站的车有6辆：
+Maggie  1       0
+Bender  6       1
+Homer   3       1
+Marge   4       0
+Bart    2       1
+Lisa    5       0
+正在运行的车有0辆：
+
+目前时间是9点
+进站侦测，一共有0辆车
+离站侦测
+5.Evaling Lisa
+4.Evaling Bart
+3.Evaling Marge
+Marge的班车要离站
+车上了5人，摇人。
+本次免费乘坐，还剩下18次。
+班车4上了家属，其名字为Baker
+2.Evaling Homer
+1.Evaling Bender
+0.Evaling Maggie
+正在车站的车有5辆：
+Maggie  1       0
+Bender  6       1
+Homer   3       1
+Bart    2       1
+Lisa    5       0
+正在运行的车有1辆：
+Marge   4       0
+
+目前时间是10点
+进站侦测，一共有1辆车
+0.Evaling Marge
+Marge的班车要到站
+Looking for the next...
+离站侦测
+5.Evaling Marge
+4.Evaling Lisa
+Lisa的班车要离站
+车上了18人，摇人。
+本次免费乘坐，还剩下18次。
+班车5上了家属，其名字为Clapton
+3.Evaling Bart
+2.Evaling Homer
+1.Evaling Bender
+0.Evaling Maggie
+Maggie的班车要离站
+车上了18人，摇人。
+我不想抽了，如果我的人生只有 Maggie 那该多好啊。
+正在车站的车有4辆：
+Bender  6       1
+Homer   3       1
+Bart    2       1
+Marge   4       0
+正在运行的车有2辆：
+Lisa    5       0
+Maggie  1       0
+
+目前时间是11点
+进站侦测，一共有2辆车
+1.Evaling Maggie
+Maggie的班车要到站
+Looking for the next...
+0.Evaling Lisa
+Lisa的班车要到站
+Looking for the next...
+离站侦测
+5.Evaling Lisa
+4.Evaling Maggie
+3.Evaling Marge
+2.Evaling Bart
+1.Evaling Homer
+0.Evaling Bender
+Bender的班车要离站
+车上了40人，摇人。
+班车6上了History老师
+正在车站的车有5辆：
+Homer   3       1
+Bart    2       1
+Marge   4       0
+Maggie  1       0
+Lisa    5       0
+正在运行的车有1辆：
+Bender  6       1
+
+目前时间是12点
+进站侦测，一共有1辆车
+0.Evaling Bender
+Bender的班车要到站
+Looking for the next...
+离站侦测
+5.Evaling Bender
+4.Evaling Lisa
+3.Evaling Maggie
+2.Evaling Marge
+1.Evaling Bart
+0.Evaling Homer
+正在车站的车有6辆：
+Homer   3       1
+Bart    2       1
+Marge   4       0
+Maggie  1       0
+Lisa    5       0
+Bender  6       1
+正在运行的车有0辆：
+
+目前时间是13点
+进站侦测，一共有0辆车
+离站侦测
+5.Evaling Bender
+4.Evaling Lisa
+3.Evaling Maggie
+2.Evaling Marge
+1.Evaling Bart
+0.Evaling Homer
+正在车站的车有6辆：
+Homer   3       1
+Bart    2       1
+Marge   4       0
+Maggie  1       0
+Lisa    5       0
+Bender  6       1
+正在运行的车有0辆：
+
+目前时间是14点
+进站侦测，一共有0辆车
+离站侦测
+5.Evaling Bender
+4.Evaling Lisa
+3.Evaling Maggie
+2.Evaling Marge
+1.Evaling Bart
+Bart的班车要离站
+车上了7人，摇人。
+班车2上了History老师
+0.Evaling Homer
+正在车站的车有5辆：
+Homer   3       1
+Marge   4       0
+Maggie  1       0
+Lisa    5       0
+Bender  6       1
+正在运行的车有1辆：
+Bart    2       1
+
+目前时间是15点
+进站侦测，一共有1辆车
+0.Evaling Bart
+Bart的班车要到站
+Looking for the next...
+离站侦测
+5.Evaling Bart
+4.Evaling Bender
+3.Evaling Lisa
+2.Evaling Maggie
+1.Evaling Marge
+0.Evaling Homer
+正在车站的车有6辆：
+Homer   3       1
+Marge   4       0
+Maggie  1       0
+Lisa    5       0
+Bender  6       1
+Bart    2       1
+正在运行的车有0辆：
+
+目前时间是16点
+进站侦测，一共有0辆车
+离站侦测
+5.Evaling Bart
+4.Evaling Bender
+3.Evaling Lisa
+2.Evaling Maggie
+1.Evaling Marge
+0.Evaling Homer
+Homer的班车要离站
+车上了24人，摇人。
+本次免费乘坐，还剩下17次。
+班车3上了家属，其名字为Baker
+正在车站的车有5辆：
+Marge   4       0
+Maggie  1       0
+Lisa    5       0
+Bender  6       1
+Bart    2       1
+正在运行的车有1辆：
+Homer   3       1
+
+目前时间是17点
+进站侦测，一共有1辆车
+0.Evaling Homer
+Homer的班车要到站
+Looking for the next...
+离站侦测
+5.Evaling Homer
+4.Evaling Bart
+3.Evaling Bender
+2.Evaling Lisa
+1.Evaling Maggie
+0.Evaling Marge
+正在车站的车有6辆：
+Marge   4       0
+Maggie  1       0
+Lisa    5       0
+Bender  6       1
+Bart    2       1
+Homer   3       1
+正在运行的车有0辆：
+
+目前时间是18点
+进站侦测，一共有0辆车
+离站侦测
+5.Evaling Homer
+4.Evaling Bart
+3.Evaling Bender
+2.Evaling Lisa
+1.Evaling Maggie
+0.Evaling Marge
+正在车站的车有6辆：
+Marge   4       0
+Maggie  1       0
+Lisa    5       0
+Bender  6       1
+Bart    2       1
+Homer   3       1
+正在运行的车有0辆：
+
+模拟结束，上车人数和时刻表全部瞎编，2333。
+
+```
 
 ## 实验心得
+通过本次实验，我对面向对象的设计理念有了更深的认识。一开始我设计卡的类型，只有卡的基类和继承来的类。然后我想用一个向量就解决存储问题。结果由于没有对这些类的基本联系有很深的认识，我编写后面上车的时候就遇到了很多坑。比如说向下转型的 `dynamic_cast`，使用的前提是需要虚函数啥的。不过我基类的虚函数没设计好，导致了很多的编译错误，因为设计的所有虚函数都是针对钱包和学院信息的，不是所有的子类都需要实验，呜哇。顺便这让我想到了 Java 的接口继承机制。  
+有个地方使用了 STL 的 `find()` 函数，里面让我们重载类的 == 运算符，我使用了 `get_id()`函数，一开始的定义是：
+```C++
+const long get_id() { return id; }
+```
+然后一编译，说这个函数不是常量函数。我一开始是懵逼的，然后我上网搜了一下，他们让我把const 放在后面，我想起来了，const 这玩意貌似是从右开始读:-P
+```C++
+long get_id() const { return id; }
+```
+现在 OK 了，好吧，考试之前要看看 const 这玩意了。  
+还有一些很小的细节，比如 `for(auto &:<element>)`，随机数引擎之类，让我觉得 C++ 11 真的是颠覆我对 C 和 C++ 十分难用的感受。
+
+
+## 样例文件里面的音乐知识
+都看到这里了，为啥不再看看呢:-)
+
+### Cream 乐队
+我在 resident.txt 里面输了两个人：Clapton 和 Baker，他们俩对应 Eric Clapton(gr.) 和 Ginger Baker(dr.)，都是奶油乐队的成员。不过我忘输机 Jack Bruce(bs. har. vo.) 了:-P
+
+奶油乐队是上世纪六十年代末的摇滚乐队，所以音乐风格有点复杂。
+
+#### 上来布鲁斯就超标
+
+他们的第一张专辑 *Fresh Cream*  布鲁斯的味道简直是超标，毕竟有一半的歌曲是翻唱的。在原创的歌曲中，*Sleepy Time Time* 体现得很明显。上来的四个音，标准的布鲁斯。后面的三个连音，也是布鲁斯。就连吉他独奏，还是布鲁斯。加上迷幻的歌词，感觉有种奇特的感觉。而在翻唱作品中，*Cat’s Squirrel* 和 *Rollin‘ and Tumblin'* 是最有那种感觉的，也就是高亢的声调来体现悲伤的感情，这都要归功于出色的口琴表演。
+
+来说说鼓手的表现。这张专辑有些歌曲的鼓声简直是疯狂至极，尤其在 *Cat’s Squirrel* 和 *Rollin‘ and Tumblin'* 里面。 *Sweet Wine* 也是他写的，听起来超级有节奏感，咚咚的感觉。专辑的最后 *Toad* 就是给他炫技的专门舞台，开创了鼓手独奏在录音室专辑中的先河。(据说他老人家有点小看 Bonzo 233) 
+
+至于吉他手嘛，他的舞台不在录音室，而在现场。这张专辑除了上面说的，再加上 *I Feel Free* ，就没啥了。
+
+#### 然后酒喝多了，脑袋沉沉的
+
+他们的第二张专辑 *Disraeli Gears*  开始迷幻了起来，虽然布鲁斯的感觉还在，但是已然不是主导的力量了。他们的声音逐渐加重了起来，也迷幻了起来。甚至名字都是迷幻的。比如说上来一首 *Strange Brew* ，虽然起调的六个音十分的布鲁斯，但只要稍微延长一下，就迷幻了起来。中间的独奏也是由连音造就的玄幻感觉。这杯啤酒就很怪。
+
+当然，也有融合得不是很好的。比如 *Tales of Brave Ulysses* ，就是纯靠有一点布鲁斯哇音搞点那种感觉，一开始听我没觉得很独特。这之后的 *SWLABW* 名字很奇怪 ( She Walked Like A Beard Rainbow )，但是节奏却很快，不迷幻，很清醒，我听完很爽的，是不是人真要迷幻起来也就这样激情吧。
+
+这张专辑的元素，实际上十分多样化，出现了只有一种风格的歌曲。比如 *Sunshine of Your Love* 就十分的重摇滚，没啥布鲁斯，也不迷幻。*Dance the Night Away* 和 *We‘re Going Wrong* 十分地抒情。前者独奏中的吉他涟漪荡漾，十分地有感觉。
+
+#### 彻底没有融合，分化的很明显
+
+第三张专辑 *Wheels of Fire*  的录音室歌曲部分明显感觉到布鲁斯，迷幻的感觉都没有那么明显了。从布鲁斯的感觉中，脱胎出重摇滚的感觉。迷幻的感觉我觉得荡然无存了，取代的是偏流行的因素。
+
+先说流行的感觉，因为我对这个没有那么深的感觉。*White Room* 气势宏大，*Those Were the Days* 节奏欢快，*As You Said* 十分伤感抒情。歌曲的风格已经很复杂，而且流行的感觉了。这个对第四张专辑 *Goodbye* 的三首歌都适用。
+
+再说重摇滚的感觉，我前面说过的很多布鲁斯调子都是几个音，只要加重一下，重的感觉立马就出来了。比如说 *Polician* 这首歌，上来的五个音虽然不是那么布鲁斯，但是绝对是很重的，布鲁斯的痕迹还是在的，而且吉他独奏也是明显的脱胎自布鲁斯。而这张专辑的两首布鲁斯翻唱 *Sitting on the Top of the World* 和 *Born Under A Bad Sign*，也是十分的重。我曾经看有人说过重金属脱胎自布鲁斯，现在我是有点明白了。(没错，说的就是 Led Zeppelin)
+
+实际上，听他们的现场，基本就是这个感觉。他们也是因为第三张专辑 *Wheels of Fire*  和第四张专辑 *Goodbye* 的现场演奏部分就是这种感觉。很重，很快，很布鲁斯。强烈推荐 *Spoonful* 的现场演奏版，绝对能听得很爽。
+
+#### 我还有啥要说的
+
+讲道理，要不是这个乐队有个很出名的吉他手，现在人估计没有多少人会注意到这个乐队。但作为六十年代末期比较出名的乐队之一，他们迷幻又重型的风格，让他们在摇滚乐的形成方面起到了很大的作用。他们录音室专辑除了第二张，其他的并没有那么好。但是他们的现场，绝对是经典中的经典。
+
+### Genesis 乐队
+student.txt 里面后面五个人，是创世纪乐队的。详情可以去看我写的 A Trick of the Tail 专辑评论。
+
+### Bee Gees
+student.txt 里面上来三个人，Barry，Robin，Maurice，他们姓 Gibb，组成了兄弟合唱团 Bee Gees。由于他们写的歌曲太多，不过出名的就几个，以下我直接列歌曲名单。
+
+#### 1967-1970
+个人听得不多，建议收听 *Best of Bee Gees* 专辑。  
+有三首歌很值得注意：*Holiday*, *New York Mining Disaster 1941* & *Massachusetts*
+
+#### 1970-1974
+1970: *IOIO*, *Lonely Days*
+1971: *How Could You Mend A Broken Heart*
+1972: *Run To Me*, *Sea of Smiling Faces*
+1973: *Saw a New Morning*
+1974: *Down the Road*, *Dogs*
+
+#### 1975 -- Main Course
 TODO
 
-## 三个文件里面的音乐知识
-TODO
+#### 1976-1981
+1976: *You Should Be Dancing*
+1977-1978: *Staying Alive*, *How Deep is Your Love*, *Night Fever*
+1979: *Too Much Heaven*, *Tragedy*
+1981: *Living Eyes*
 

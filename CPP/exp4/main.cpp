@@ -21,6 +21,7 @@ bus_process buses;
 card_process cards;
 
 // Dumb Simulation Program
+// I think auto for has bug, which it use the previous size.
 int simulation()
 {
     cout << "====模拟开始====" << endl;
@@ -39,33 +40,41 @@ int simulation()
     {
         cout << "目前时间是" << clk << "点\n";
         // 侦测进站班车
-        for (auto i = buses.ongoing.begin(); i < buses.ongoing.end(); ++i)
+        cout << "进站侦测，一共有" << buses.ongoing.size() << "辆车" << endl;
+        int c = 0;
+        for (int i = buses.ongoing.size() - 1; i >= 0; --i)
         {
-            if ((*i).get_offtime() == clk - RUN_TIME)
+            bus &j = buses.ongoing[i];
+            cout << i << ".Evaling " << j.get_driver() << endl;
+            if (j.get_offtime() == clk - RUN_TIME)
             {
-                cout << (*i).get_driver() << "的班车要到站\n";
-                buses.station.push_back((*i));
-                (*i).clear();
-                buses.ongoing.erase(i);
+                cout << j.get_driver() << "的班车要到站\n";
+                j.clear();
+                buses.station.push_back(j);
+                buses.ongoing.erase(find(buses.ongoing.begin(), buses.ongoing.end(), j));
             }
+            cout << "Looking for the next..." << endl;
         }
         // 侦测离站班车
-        for (auto i = buses.station.begin(); i < buses.station.end(); ++i)
+        cout << "离站侦测" << endl;
+        for (int j = buses.station.size() - 1; j >= 0; --j)
         {
-            if ((*i).get_offtime() == clk)
+            bus &i = buses.station[j];
+            cout << j << ".Evaling " << i.get_driver() << endl;
+            if (i.get_offtime() == clk)
             {
-                cout << (*i).get_driver() << "的班车要离站\n";
+                cout << i.get_driver() << "的班车要离站\n";
                 // 随便来点十七号城市的难民
-                uniform_int_distribution<uint> u(0, (*i).get_max());
-                (*i).set_onboard_count(u(e));
+                uniform_int_distribution<uint> u(0, i.get_max());
+                i.set_onboard_count(u(e));
                 // 然后再加点人
-                if ((*i).isfull())
+                if (i.isfull())
                 {
                     cout << "车满了，不摇人了。\n";
                 }
                 else
                 {
-                    cout << "车上了" << (*i).get_onboard_count() << "人，摇人。\n";
+                    cout << "车上了" << i.get_onboard_count() << "人，摇人。\n";
                     // 随便拉个人上车
                     uniform_int_distribution<uint> u2(0, 2);
                     // 抽中个老师
@@ -77,10 +86,10 @@ int simulation()
                         {
                             cout << to_deal.get_name() << "老师上车了。\n";
                         }
-                        else if ((*i).onboard(to_deal.get_id()))
+                        else if (i.onboard(to_deal.get_id()))
                         {
                             to_deal.set_times(1);
-                            cout << "班车" << (*i).get_id() << "上了" << to_deal.get_name() << "老师\n";
+                            cout << "班车" << i.get_id() << "上了" << to_deal.get_name() << "老师\n";
                         }
                         else
                         {
@@ -98,10 +107,10 @@ int simulation()
                         }
                         else if (to_deal.pay())
                         {
-                            if ((*i).onboard(to_deal.get_id()))
+                            if (i.onboard(to_deal.get_id()))
                             {
                                 to_deal.set_times(1);
-                                cout << "班车" << (*i).get_id() << "上了" << to_deal.get_name() << "学生\n";
+                                cout << "班车" << i.get_id() << "上了" << to_deal.get_name() << "学生\n";
                             }
                         }
                         else
@@ -120,10 +129,10 @@ int simulation()
                         }
                         else if (to_deal.pay())
                         {
-                            if ((*i).onboard(to_deal.get_id()))
+                            if (i.onboard(to_deal.get_id()))
                             {
                                 to_deal.set_times(1);
-                                cout << "班车" << (*i).get_id() << "上了家属，其名字为" << to_deal.get_name() << "\n";
+                                cout << "班车" << i.get_id() << "上了家属，其名字为" << to_deal.get_name() << "\n";
                             }
                         }
                         else
@@ -138,15 +147,15 @@ int simulation()
                     }
                 }
                 // 出发！
-                buses.ongoing.push_back((*i));
-                (*i).clear();
-                buses.station.erase(i);
+                buses.ongoing.push_back(i);
+                i.clear();
+                buses.station.erase(find(buses.station.begin(), buses.station.end(), i));
             }
         }
 
-        cout << "正在车站的车有：\n";
+        cout << "正在车站的车有" << buses.station.size() << "辆：\n";
         buses.list_bus(buses.station);
-        cout << "正在运行的车有：\n";
+        cout << "正在运行的车有" << buses.ongoing.size() << "辆：\n";
         buses.list_bus(buses.ongoing);
         cout << endl;
     }
