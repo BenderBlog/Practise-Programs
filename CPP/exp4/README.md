@@ -521,11 +521,13 @@ long get_id() const { return id; }
 
 #### 上来布鲁斯就超标
 
-他们的第一张专辑 *Fresh Cream*  布鲁斯的味道简直是超标，毕竟有一半的歌曲是翻唱的。在原创的歌曲中，*Sleepy Time Time* 体现得很明显。上来的四个音，标准的布鲁斯。后面的三个连音，也是布鲁斯。就连吉他独奏，还是布鲁斯。加上迷幻的歌词，感觉有种奇特的感觉。而在翻唱作品中，*Cat’s Squirrel* 和 *Rollin‘ and Tumblin'* 是最有那种感觉的，也就是高亢的声调来体现悲伤的感情，这都要归功于出色的口琴表演。
+他们的第一张专辑 *Fresh Cream*  布鲁斯的味道简直是超标，毕竟有一半的歌曲是翻唱的布鲁斯歌曲。在原创的歌曲中，*Sleepy Time Time* 体现得很明显。上来的四个音，标准的布鲁斯。后面的三个连音，也是布鲁斯。就连吉他独奏，还是布鲁斯。加上迷幻的歌词，感觉有种奇特的感觉。而在翻唱作品中，*Cat’s Squirrel* 和 *Rollin‘ and Tumblin'* 是最有那种感觉的，也就是高亢的声调来体现悲伤的感情，这都要归功于出色的口琴表演。
 
 来说说鼓手的表现。这张专辑有些歌曲的鼓声简直是疯狂至极，尤其在 *Cat’s Squirrel* 和 *Rollin‘ and Tumblin'* 里面。 *Sweet Wine* 也是他写的，听起来超级有节奏感，咚咚的感觉。专辑的最后 *Toad* 就是给他炫技的专门舞台，开创了鼓手独奏在录音室专辑中的先河。(据说他老人家有点小看 Bonzo 233) 
 
 至于吉他手嘛，他的舞台不在录音室，而在现场。这张专辑除了上面说的，再加上 *I Feel Free* ，就没啥了。
+
+关于第一张专辑，我还想说一点。这张专辑的双声道版本在我看来，十分地糟糕。鼓声贝斯完全在左声道，吉他声完全在左声道，听上去太割裂啦。要想完整欣赏的话，要不找个有单声道混音的纪念版，要不找个好点的单声道混音器:-P
 
 #### 然后酒喝多了，脑袋沉沉的
 
@@ -533,7 +535,9 @@ long get_id() const { return id; }
 
 当然，也有融合得不是很好的。比如 *Tales of Brave Ulysses* ，就是纯靠有一点布鲁斯哇音搞点那种感觉，一开始听我没觉得很独特。这之后的 *SWLABW* 名字很奇怪 ( She Walked Like A Beard Rainbow )，但是节奏却很快，不迷幻，很清醒，我听完很爽的，是不是人真要迷幻起来也就这样激情吧。
 
-这张专辑的元素，实际上十分多样化，出现了只有一种风格的歌曲。比如 *Sunshine of Your Love* 就十分的重摇滚，没啥布鲁斯，也不迷幻。*Dance the Night Away* 和 *We‘re Going Wrong* 十分地抒情。前者独奏中的吉他涟漪荡漾，十分地有感觉。
+这些特点都要归功于新的制作人。第一张专辑的制作人，就是他们的经纪人 Robert Stigwood，经纪人没有抓住他们乐曲的主要特点，搞得听起来有点平平。回来有个贝斯手 Felix Pappalardi 听完了，找到了他们，稍微改了几下，添加了很多新要素。
+
+这张专辑的元素，实际上十分多样化，出现了全新风格的歌曲。比如 *Sunshine of Your Love* 就十分的重摇滚，没啥布鲁斯，也不迷幻。*Dance the Night Away* 和 *We‘re Going Wrong* 十分纯粹地抒情。前者独奏中的吉他涟漪荡漾，十分地有感觉。
 
 #### 彻底没有融合，分化的很明显
 
@@ -549,6 +553,12 @@ long get_id() const { return id; }
 
 讲道理，要不是这个乐队有个很出名的吉他手，现在人估计没有多少人会注意到这个乐队。但作为六十年代末期比较出名的乐队之一，他们迷幻又重型的风格，让他们在摇滚乐的形成方面起到了很大的作用。他们录音室专辑除了第二张，其他的并没有那么好。但是他们的现场，绝对是经典中的经典。
 
+#### 扩展观看
+
+[Discogs 上面的乐队信息](https://www.discogs.com/artist/229621-Cream-2)
+[这个乐队的纪录片](https://www.bilibili.com/video/BV1xF411T75L)
+[本乐队鼓手的纪录片](https://www.bilibili.com/video/BV1Zy4y1y729)
+
 ### Genesis 乐队
 student.txt 里面后面五个人，是创世纪乐队的。详情可以去看我写的 A Trick of the Tail 专辑评论。
 
@@ -560,18 +570,16 @@ student.txt 里面上来三个人，Barry，Robin，Maurice，他们姓 Gibb，�
 有三首歌很值得注意：*Holiday*, *New York Mining Disaster 1941* & *Massachusetts*
 
 #### 1970-1974
-1970: *IOIO*, *Lonely Days*
-1971: *How Could You Mend A Broken Heart*
-1972: *Run To Me*, *Sea of Smiling Faces*
-1973: *Saw a New Morning*
+1970: *IOIO*, *Lonely Days*  
+1971: *How Could You Mend A Broken Heart*  
+1972: *Run To Me*, *Sea of Smiling Faces*  
+1973: *Saw a New Morning*  
 1974: *Down the Road*, *Dogs*
 
-#### 1975 -- Main Course
-TODO
-
-#### 1976-1981
-1976: *You Should Be Dancing*
-1977-1978: *Staying Alive*, *How Deep is Your Love*, *Night Fever*
-1979: *Too Much Heaven*, *Tragedy*
+#### 1975-1981
+1975: 整张 *Main Course* 专辑  
+1976: *You Should Be Dancing*  
+1977-1978: *Staying Alive*, *How Deep is Your Love*, *Night Fever*  
+1979: *Too Much Heaven*, *Tragedy*  
 1981: *Living Eyes*
 
