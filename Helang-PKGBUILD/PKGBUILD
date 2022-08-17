@@ -1,0 +1,28 @@
+# Maintainer: Cyber Litang Dingzhen <114514@xbzcz.jp>
+pkgname=helang
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Wow, it's so cool! Science with delightment."
+arch=("any")
+url="https://hub.fastgit.xyz/kifuan/helang"
+license=('MIT')
+depends=("python" "python-tqdm")
+makedepends=("git")
+source=("git+$url"
+		"helang-shell"
+		"helang-script")
+md5sums=("SKIP"
+		 "SKIP"
+		 "SKIP")
+
+package() {
+	mkdir -p $pkgdir/opt/helang
+	install -D -m 755 $srcdir/helang/main.py $pkgdir/opt/helang
+	install -D -m 755 $srcdir/helang/shell.py $pkgdir/opt/helang
+	mkdir -p $pkgdir/opt/helang/helang
+	install -D -m 755 $srcdir/helang/helang/*.py $pkgdir/opt/helang/helang
+	install -D -m 755 $srcdir/helang/great.he $pkgdir/opt/helang
+	mkdir -p $pkgdir/usr/bin
+	install -D -m 755 helang-shell $pkgdir/usr/bin/helang-shell
+	install -D -m 755 helang-script $pkgdir/usr/bin/helang-script
+}
