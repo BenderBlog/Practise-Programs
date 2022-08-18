@@ -8,7 +8,7 @@ setup(
     install_requires = [
         'tqdm'
         'pytest'
-        'requests'
+        'pyside6'
     ],
     entry_points={
         'console_scripts': [

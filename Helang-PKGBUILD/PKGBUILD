@@ -7,18 +7,15 @@ pkgdesc="Wow, it's so cool! Science with delightment."
 arch=("any")
 url="https://hub.fastgit.xyz/kifuan/helang"
 license=('MIT')
-depends=("python" "python-tqdm" "python-requests")
+depends=("python" "python-tqdm" "pyside6")
 makedepends=("git")
 source=("git+$url"
-		"setup.py"
-		"avoid_ltc.patch")
+		"setup.py")
 md5sums=("SKIP"
-		 "SKIP"
 		 "SKIP")
 
 build() {
 	cd $srcdir/helang
-	patch -p1 < ../avoid_ltc.patch
 	cp ../setup.py $srcdir/helang
 	python setup.py build
 }
