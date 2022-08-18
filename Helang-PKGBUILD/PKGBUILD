@@ -1,28 +1,29 @@
-# Maintainer: Cyber Litang Dingzhen <114514@xbzcz.jp>
-pkgname=helang
+# This package is just4fun, do not take serious!
+# Maintainer: SuperBart <superbart_chen@qq.com>
+pkgname=python-helang-git
 pkgver=1.0.0
 pkgrel=1
 pkgdesc="Wow, it's so cool! Science with delightment."
 arch=("any")
 url="https://hub.fastgit.xyz/kifuan/helang"
 license=('MIT')
-depends=("python" "python-tqdm")
+depends=("python" "python-tqdm" "python-requests")
 makedepends=("git")
 source=("git+$url"
-		"helang-shell"
-		"helang-script")
+		"setup.py"
+		"avoid_ltc.patch")
 md5sums=("SKIP"
 		 "SKIP"
 		 "SKIP")
 
+build() {
+	cd $srcdir/helang
+	patch -p1 < ../avoid_ltc.patch
+	cp ../setup.py $srcdir/helang
+	python setup.py build
+}
+
 package() {
-	mkdir -p $pkgdir/opt/helang
-	install -D -m 755 $srcdir/helang/main.py $pkgdir/opt/helang
-	install -D -m 755 $srcdir/helang/shell.py $pkgdir/opt/helang
-	mkdir -p $pkgdir/opt/helang/helang
-	install -D -m 755 $srcdir/helang/helang/*.py $pkgdir/opt/helang/helang
-	install -D -m 755 $srcdir/helang/great.he $pkgdir/opt/helang
-	mkdir -p $pkgdir/usr/bin
-	install -D -m 755 helang-shell $pkgdir/usr/bin/helang-shell
-	install -D -m 755 helang-script $pkgdir/usr/bin/helang-script
+	cd $srcdir/helang
+	python setup.py install --root="$pkgdir" --optimize=1
 }
