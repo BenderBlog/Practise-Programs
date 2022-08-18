@@ -1,5 +1,6 @@
 # Helang-PKGBUILD
-现在连个高中生都能自己创造语言了，时代变了，我这都要大三了连个小程序都写不出:-P
+现在连个高中生都能自己创造语言了，时代变了，我这都要大三了连个小程序都写不出:-P  
+现在已经上传到 AUR 了，在 aurhelper 中输入 `python-helang-git` 进行搜索即可安装。注意，这玩意依赖 `pyside6`。
 
 ## 原理
 翻译自 [ArchWiki 中打包 Python 包文档](https://wiki.archlinux.org/title/Python_package_guidelines#Standards_based_(PEP_517))
