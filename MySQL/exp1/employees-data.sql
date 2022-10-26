@@ -15,11 +15,6 @@ VALUES
 	("Leia","Left","Alderaan"),
 	("Amidala","Left","Naboo");
 
-INSERT INTO company(company_name,city) 
-VALUES
-	("the Empire","Coruscant"),
-	("the Republic","Alderaan");
-
 INSERT INTO works(employee_name,company_name,salary)
 VALUES
 	("Darth Vader","the Empire",100000),
@@ -35,7 +30,12 @@ VALUES
 	("Leia","the Republic",100000),
 	("Amidala","the Republic",100000);
 
-INSERT INTO manages(employee_name,managers_name)
+INSERT INTO company(company_name,city) 
+VALUES
+	("the Empire","Coruscant"),
+	("the Republic","Alderaan");
+
+INSERT INTO manages(employee_name,manager_name)
 VALUES
 	("Darth Vader","Darth Sidious"),
 	("Darth Maul","Darth Sidious"),
