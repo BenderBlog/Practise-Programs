@@ -1,0 +1,9 @@
+
+public errordomain Travel_Management.DatabaseError {
+	COULDNT_OPEN,
+	EXECUTION_FAILED,
+	PREPARATION_FAILED,
+	BIND_FAILED,
+	INVALID_GAME,
+	NOT_FOUND,
+}
