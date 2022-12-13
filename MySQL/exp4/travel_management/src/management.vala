@@ -1,5 +1,10 @@
+// 2022 SuperBart, released under SuperBart Public Domain Software License / GPLv3.
+// I used the GNU readline library to input string, which should be avoidable.
+// Database project, management class. Due to the time is near the deadline, 
+// only administration interface is written.
 
 using GLib;
+using Gee;
 using Readline;
 
 public class Travel_Management.management_admin : Object {
@@ -11,24 +16,21 @@ public class Travel_Management.management_admin : Object {
     }
 
     public void test_data () {
-        const string CITY[8] = {"Tianjin", "Urumqi",  "Hohhot", "Wuhan",
-                                "Xi'an", "Beijing", "Shanghai", "Shenzhen"};
-        for (int i = 0; i < 16; i++) {
-            string num = @"A-00000$i";
+        for (int i = 1; i <= 16; i++) {
             int price = 100 + Random.int_range (0, 7) * 20;
             int seats = 30 + Random.int_range (0, 7) * 5;
-            uint from = Random.int_range (0, 7);
-            uint to = Random.int_range (0, 7);
+            uint from = Random.int_range (0, 8);
+            uint to = Random.int_range (0, 8);
             while (from == to) {
                 if (from == 0) from += Random.int_range (1, 7);
                 else if (to == 7) to -= Random.int_range (1, 7);
                 else from = Random.int_range (0, 7);
             }
             toUse.addFlightData ({
-                num, price, seats, seats, CITY[from], CITY[to],
+                @"A-00000$i", price, seats, seats, CITY[from], CITY[to],
             });
         }
-        
+
         for (int i = 0; i < 8; i++) {
             int price = 100 + Random.int_range (0, 7) * 20;
             int rooms = 40 + Random.int_range (0, 7) * 5;
@@ -349,13 +351,13 @@ public class Travel_Management.management_admin : Object {
                     Flight toChange = toUse.search_flight ().index (choice - 1);
                     double price;
                     int numberSeats;
-                     
-                    stdout.printf ("Enter PRICE(float), current %.2lf: ".printf(toChange.price));
+
+                    stdout.printf ("Enter PRICE(float), current %.2lf: ".printf (toChange.price));
                     stdin.scanf ("%lf", out price);
 
                     stdout.printf ("Enter NUMBEROFSEATS(int): , current %d, avaliable %d: ".printf (toChange.numberSeats, toChange.numberAvail));
                     stdin.scanf ("%d", out numberSeats);
-                    
+
                     // FromCity and ArriveCity not changeable!
 
                     int reserved = toChange.numberSeats - toChange.numberAvail;
@@ -370,13 +372,13 @@ public class Travel_Management.management_admin : Object {
                 } else if (type == 2) {
                     Hotel toChange = toUse.search_hotel ().index (choice - 1);
                     int price, numberRooms;
-    
-                    stdout.printf ("Enter PRICE(float), current %d: ".printf(toChange.price));
+
+                    stdout.printf ("Enter PRICE(float), current %d: ".printf (toChange.price));
                     stdin.scanf ("%d", out price);
-    
+
                     stdout.printf ("Enter NUMBEROFROOM(int), current %d, avaliable %d: ".printf (toChange.numberRooms, toChange.numberAvial));
                     stdin.scanf ("%d", out numberRooms);
-                    
+
                     int reserved = toChange.numberRooms - toChange.numberAvial;
                     if (numberRooms - reserved < 0) {
                         stdout.printf ("Unable to change, new numberRooms is smaller than reserved.\n");
@@ -390,7 +392,7 @@ public class Travel_Management.management_admin : Object {
                     Bus toChange = toUse.search_bus ().index (choice - 1);
                     int price, numberBus;
 
-                    stdout.printf ("Enter PRICE(int), current %d: ".printf(toChange.price));
+                    stdout.printf ("Enter PRICE(int), current %d: ".printf (toChange.price));
                     stdin.scanf ("%d", out price);
 
                     stdout.printf ("Enter NUMBEROFBUS(int)current %d, avaliable %d: ".printf (toChange.numberBus, toChange.numberAvial));
@@ -412,7 +414,7 @@ public class Travel_Management.management_admin : Object {
 
                     toChange.name = name;
                     toUse.changeCustomerData (toChange);
-                } 
+                }
                 stdout.printf ("Change complete.");
             } else {
                 stdout.printf ("Unable to understand, rollback...\n");
@@ -420,8 +422,61 @@ public class Travel_Management.management_admin : Object {
         } catch (DatabaseError e) {
             stdout.printf (e.message);
         }
-
         return;
+    }
+
+    private void eval_possibility () {
+        HashMap<string, HashSet<string>> Graph = toUse.avaliable ();
+        int from, to;
+        for (int i = 0; i < CITY.length; ++i) {
+            stdout.printf (@"$i $(CITY[i])\n");
+        }
+        stdout.printf ("Choice a departure: ");
+        stdin.scanf ("%d", out from);
+        stdout.printf ("Choice a destination: ");
+        stdin.scanf ("%d", out to);
+        if (from < 0 || from >= CITY.length || to < 0 || to >= CITY.length) {
+            stdout.printf ("Unable to find this city.\n");
+        } else if (from == to) {
+            stdout.printf ("You needn't have to paid for roundabout.\n");
+        } else if (!Graph.has_key (CITY[from])) {
+            stdout.printf ("Departure is a lonely city.");
+        } else {
+            HashSet<string> dealt = new HashSet<string>();
+            dealt.add (CITY[from]);
+            while (!dealt.contains (CITY[to])) {
+                HashSet<string> toAppend = new HashSet<string>();
+                dealt.foreach ((i) => {
+                    if (Graph.has_key (i)) {
+                        Graph[i].foreach((i) => {
+                            if (!dealt.contains (i)) toAppend.add (i);
+                            return true;
+                        });
+                    }
+                    return true;
+                });
+                if (toAppend.is_empty) {
+                    stdout.printf ("Unable to reach!\n");
+                    break;
+                } else {
+                    dealt.add_all (toAppend);
+                }
+            }
+            stdout.printf ("It's able to reach!\n");
+        }
+    }
+
+    public void print_flights () {
+        var Graph = toUse.avaliable ();
+        foreach (var key in CITY) {
+            stdout.printf (@"$key: ");
+            if (!Graph.has_key (key)) {
+                stdout.printf ("Lonely city.");
+            } else {
+                Graph[key].foreach ((j) => {stdout.printf (@"$j,"); return true;});
+            }
+            stdout.printf ("\n");
+        }
     }
 
     public void management () {
@@ -429,7 +484,7 @@ public class Travel_Management.management_admin : Object {
         int menu = 0;
         while (true) {
             stdout.printf ("\n--------------- Administer --------------\n");
-            stdout.printf ("1.Insert   2.Delete   3.Query   4.Update 5.Generate 0.Quit\nYour Choice: ");
+            stdout.printf ("1.Insert   2.Delete   3.Query   4.Update   5.Generate   6.Display   7.Eval   0.Quit\nYour Choice: ");
             stdin.scanf ("%i", &menu);
             if (menu == 0) {
                 stdout.printf ("Bye.\n");
@@ -448,6 +503,10 @@ public class Travel_Management.management_admin : Object {
                 update_data ();
             } else if (menu == 5) {
                 test_data ();
+            } else if (menu == 6) {
+                print_flights ();
+            } else if (menu == 7) {
+                eval_possibility ();
             } else {
                 stdout.printf ("Unable to understand, rollback...\n");
             }

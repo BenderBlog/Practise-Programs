@@ -1,5 +1,5 @@
-
-using GLib;
+// 2022 SuperBart, released under SuperBart Public Domain Software License.
+// Database project, entry.
 
 void main (string[] args)
 {

@@ -1,9 +1,11 @@
+// 2022 SuperBart, released under SuperBart Public Domain Software License.
+// Database project, define important structure for program.
 
 using GLib;
 
 // Ariv stand for avaliable
 public struct Travel_Management.Flight {
-    string flightNumber;// Main key
+    string flightNumber; // Main key
     double price;
     int numberSeats;
     int numberAvail;
@@ -12,14 +14,14 @@ public struct Travel_Management.Flight {
 }
 
 public struct Travel_Management.Hotel {
-    string location;    // Main key
+    string location; // Main key
     int price;
     int numberRooms;
     int numberAvial;
 }
 
 public struct Travel_Management.Bus {
-    string location;    // Main key
+    string location; // Main key
     int price;
     int numberBus;
     int numberAvial;
@@ -37,3 +39,8 @@ public struct Travel_Management.Reservation {
     int reservationType;
     string reservationString;
 }
+
+const string CITY[8] = {
+    "Tianjin", "Urumqi", "Hohhot", "Wuhan",
+    "Xi'an", "Beijing", "Shanghai", "Shenzhen"
+};

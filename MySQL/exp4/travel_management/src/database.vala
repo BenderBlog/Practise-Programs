@@ -1,5 +1,8 @@
+// 2022 SuperBart, released under SuperBart Public Domain Software License.
+// Database project, database class. Use sqlite because using mysql is a waste.
+// Mostly formulas I used are from sqlite C/C++ header, instead of obdc.
 
-using GLib;
+using Gee;
 using Sqlite;
 
 public class Travel_Management.Database : GLib.Object {
@@ -63,7 +66,7 @@ public class Travel_Management.Database : GLib.Object {
     private const string ADD_HOTEL_DATA = """
             INSERT INTO HOTEL (location, price, numRooms, numAvail)
             VALUES ($LOCATION, $PRICE, $NUMBEROFROOMS, $NUMBEROFAVALIABLE);
-    """; 
+    """;
 
     private const string ADD_BUS_DATA = """
             INSERT INTO BUS (location, price, numBus, numAvail)
@@ -183,7 +186,7 @@ public class Travel_Management.Database : GLib.Object {
         return;
     }
 
-    private Sqlite.Statement prepare (string sql) throws DatabaseError {
+    public Sqlite.Statement prepare (string sql) throws DatabaseError {
         Sqlite.Statement statement;
         int sql_result = m_db.prepare_v2 (sql, sql.length, out statement);
         if (sql_result != Sqlite.OK) {
@@ -569,7 +572,7 @@ public class Travel_Management.Database : GLib.Object {
             Array<Bus> toReturn = new Array<Bus> ();
             var query = new StringBuilder ("SELECT * FROM BUS;");
             if (location != "") {
-                query.insert (-1,@"WHERE location = \"$location\";");
+                query.insert (-1, @"WHERE location = \"$location\";");
             }
 
             Sqlite.Statement stmt = prepare (query.str);
@@ -603,7 +606,6 @@ public class Travel_Management.Database : GLib.Object {
                     stmt.column_text (1),
                 });
             }
-
             return toReturn;
         } catch (DatabaseError e) {
             throw e;
@@ -631,6 +633,25 @@ public class Travel_Management.Database : GLib.Object {
             return toReturn;
         } catch (DatabaseError e) {
             throw e;
+        }
+    }
+
+    public HashMap<string, HashSet<string>> ? avaliable () {
+        try {
+            var Graph = new HashMap<string, HashSet<string>> ();
+            Sqlite.Statement get_flight = this.prepare ("SELECT FromCity,ArivCity FROM FLIGHT;");
+            while (get_flight.step () == Sqlite.ROW) {
+                string from = get_flight.column_text (0);
+                string to = get_flight.column_text (1);
+                if (!Graph.has_key (from)) {
+                    Graph[from] = new HashSet<string> ();
+                }
+                Graph[from].add (to);
+            }
+            return Graph;
+        } catch (DatabaseError e) {
+            stdout.printf (e.message);
+            return null;
         }
     }
 }

@@ -11,6 +11,7 @@ travel_management_deps = [
   dependency('gobject-2.0'),
   dependency('sqlite3'),
   dependency('readline'),
+  dependency('gee-0.8'),
 ]
 
 executable('travel_management', travel_management_sources,
