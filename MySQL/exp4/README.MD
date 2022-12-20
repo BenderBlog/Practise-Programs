@@ -8,6 +8,18 @@ SQLite 将数据库存在一个文件里，使用的时候，调用 SQLite 库�
 
 ~~Vala 简介是付费内容~~
 
+## 程序编译方式(Windows)
+
+1. 安装 msys2 ，然后安装以下包：`mingw-w64-x86_64-gcc``mingw-w64-x86_64-vala``mingw-w64-x86_64-readline``mingw-w64-x86_64-libgee```mingw-w64-x86_64-sqlite3`。
+
+2. 设置好环境变量。
+
+3. 使用这个命令编译
+   
+   ```powershell
+   valac --pkg readline --pkg glib-2.0 --pkg gobject-2.0 --pkg sqlite3 --pkg gee-0.8 *.vala~~
+   ```
+
 ## 基本功能
 
 1. 通过 SQLite 提供的接口操控数据库。
@@ -610,21 +622,469 @@ NUM     FLIGHTNUM       PRICE   NUMSEAT NUMAVA  FROM    ARRI
 14      A-0000014       200.00  60      60      Urumqi  Tianjin
 15      A-0000015       140.00  50      50      Tianjin Shanghai
 16      A-0000016       120.00  55      55      Urumqi  Tianjin
-
 ```
 
 ## 实验总结
 
 通过这次大作业，我学会了 SQLite 如何在程序里面绑定，也就是如何在程序嵌入数据库。这是一个比较底层的使用数据库方式。
 
-## 程序编译方式(Windows)
+## 付费内容
 
-1. 安装 msys2 ，然后安装以下包：`mingw-w64-x86_64-gcc``mingw-w64-x86_64-vala``mingw-w64-x86_64-readline``mingw-w64-x86_64-libgee```mingw-w64-x86_64-sqlite3`。
+坏事，这块没给写进报告......不过，我学完这个挺后悔的。
 
-2. 设置好环境变量。
+### Vala 语言简介
 
-3. 使用这个命令编译
-   
-   ```powershell
-    valac --pkg readline --pkg glib-2.0 --pkg gobject-2.0 --pkg sqlite3 --pkg gee-0.8 *.vala
-   ```
+Vala 是由 GNOME 小矮人开发的面向对象编程语言。编程语法接近 Java，大量使用 GLib 库，编译方式是先翻译成 C 语言代码，然后编译。用途嘛......我来讲个故事吧。
+
+我半年前学了 Dart，Google 开发的语言，编程语法接近 Javascript。官网说它是“多用途语言”，然而我感觉多数人学了它，就是为了用 Flutter :-P
+
+Vala 也是这样，名义上是一个“多用途语言”(要不然我这个大作业是咋写出来的捏)，但是我感觉多数人学了它，只是为了 GTK ......
+
+不得不说，GLib 是一个很强大的库。本来说是给 GTK 服务的，后来独立出去了。它实现了单/双向链表，变长数组，树，Map 等数据结构。它还以 GObject 为中心，构建了一个相当完善的，庞大的，~~~让我这个菜鸡不知所以的~~类系统。
+
+接下来大致介绍顺序：
+
+1. 基本输入输出（从键盘输入，从终端输出）
+
+2. 判断语句 if-else 和 switch
+
+3. 循环语句，包括计数和计事件循环
+
+4. 我一点都不懂的面向对象
+
+5. GLib 库和 Gee 库
+
+6. SQLite 3 库
+
+#### 基本输入输出
+
+输出一句话，都是那德行：
+
+```vala
+void main() {
+    // GLib 的 print 函数
+    print("Clapton is GOD!");
+    // 使用到了 stdin / stdout / stderr 对象
+    stdout.printf("%s is GOD!","Clapton");
+}
+```
+
+输入一个数字：
+
+```vala
+void main() {
+    // 双精度浮点数
+    double a;
+    // 类似 C 语言的 scanf，注意 out
+    // 不是取地址符
+    stdin.scanf("%lf",out a);
+    // 类似 C 语言的 printf
+    stdout.printf("%.3f",a);
+
+    int b;
+    stdin.scanf("%d",out b);
+    stdout.printf("%d",b);
+}
+```
+
+输入字符串：
+
+```vala
+void main() {
+    stdout.printf("Welcome, what's your name?");
+    string a = stdin.read_line();
+    stdout.printf("OK, %s, main course is prepared for you.",a);
+}
+```
+
+#### 判断语句
+
+if-else 判断：
+
+```vala
+void main() {
+    stdout.printf("Enter a year: ");
+    int year;
+    stdin.scanf("%d",out year);
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ) {
+        print("Maybe Olympics if no war.");
+    } else {
+        print("No Olympics.");
+    }
+}
+```
+
+swtich 判断：
+
+省略，很少用到。
+
+#### 循环语句
+
+计次数循环 for
+
+```vala
+// 金字塔输出
+void main() {
+    int a;
+    stdin.scanf("%d",out a);
+    for (int i = 1; i <= a; i += 2){
+        for (int j = 0; j < (a - i) / 2; ++j) {
+            print(" ");
+        }
+        for (int j = 0; j < i; ++j) {
+            print("*");
+        }
+        print("\n");
+    }
+}
+```
+
+计事件循环 while
+
+```vala
+// Vala 引用库的方式
+using Random;
+
+void main() {
+    // 这里我用了随机数类
+    int toGuess = Random.int_range (0, 50);
+    while (true) {
+        int a;
+        stdout.printf("Enter a number: ");
+        stdin.scanf("%d", out a);
+        if (a == toGuess) {
+            break;
+        }
+        if (a < toGuess) {
+            print("Think larger.\n");
+        } else {
+            print("Think smaller.\n");
+        }
+    }
+    print("Match\n");
+}
+```
+
+#### 面向对象特性
+
+注意，Vala 基于 GLib，GLib 包含 GObject，GObject 仅支持单向继承。所以，跟 Java 一样，单继承+接口。
+
+从大家喜闻乐见的开始：
+
+```vala
+class Animal {
+    // 类里面的变量
+    // 和 Java 一样，有 private protected public
+    protected string name;
+    // 构造函数
+    public Animal (string _name){
+        name = _name;
+    }
+    // 析构函数，一般不用写
+    // ~Animal();
+    // 方法
+    public void action () {
+        print("Punish you in the name of the moon, ");
+    }
+}
+
+class Cat : Animal{
+    private bool cute;
+    public Cat (string _name, bool cute) {
+        // base() 调取父类构造函数，必须写
+        base(_name);
+        this.cute = cute;
+    }
+    // 重写方法需要加 "new"
+    public new void action () {
+        base.action ();
+        print(cute ? "meow~" : "graw~");
+    }
+}
+
+void main() {
+    Cat a = new Cat("A",true);
+    a.action();
+}
+```
+
+这个是我从网上抄的一段代码：
+
+```vala
+// 接口，也就是不能被实例化的虚类。
+interface Printable {
+    // abstract 要由继承的类实现
+    public abstract string print ();
+
+    // virtual 有默认的实现
+    public virtual string pretty_print () {
+        return "Please " + print ();
+    }
+}
+
+class NormalPrint: Object, Printable {
+    // 实现上面的 abstract
+    string print () {
+        return "don't forget about me\n";
+    }
+}
+
+class OverridePrint: Object, Printable {
+    string print () {
+        return "Mind the gap\n";
+    }
+
+    // 重载函数，覆盖 virtual 的默认实现
+    public override string pretty_print () {
+        return "Override\n";
+    }
+}
+
+void main (string[] args) {
+    var normal = new NormalPrint ();
+    var overridden = new OverridePrint ();
+
+    print (normal.pretty_print ());
+    print (overridden.pretty_print ());
+}
+```
+
+水平所限，不能介绍更多（面向对象课我学的一塌糊涂）。
+
+如果想了解更多，请看官方介绍：[Project/Vala/Tutorial#OOP](https://wiki.gnome.org/Projects/Vala/Tutorial#Object_Oriented_Programming)
+
+#### Gee
+
+我对这个了解不多，先把官方的链接贴上来：[Projects/Vala/GeeSamples - GNOME Wiki!](https://wiki.gnome.org/Projects/Vala/GeeSamples)
+
+个人建议 Gee，功能比 Glib 本身有的更丰富。但是编译的时候需要添加 Gee 库。
+
+Glib 中，我有用过:
+
+* Array<类型>：变长数组
+
+* List<类型>：双向列表
+
+Gee中，我有用过：
+
+* Set<类型>：无重复集合
+
+* HashMap<类型1,类型2>：哈希字典
+
+具体用法请参阅相关文档和示例。这里我说个题外话：迭代，匿名函数。
+
+#### 迭代，匿名函数
+
+首先是匿名函数，很简单：
+
+```vala
+(函数形参)=>{函数体语句}
+(函数形参)=>一条语句;
+```
+
+一般用于函数需要函数作形参的时候，临时写一个简单的。比如下面那个情况。
+
+还有迭代，有些预先定义好的数据结构都支持迭代，使用的时候使用 `foreach` 方法就好。详情请看官方文档。比如说：
+
+```vala
+void main () {
+    List<int> a = new List<int>();
+    a.append (1);
+    a.append (2);
+    a.append (3);
+    a.append (4);
+    a.append (5);
+    // foreach 方法需要一个函数，这里面的就是匿名函数
+    a.foreach((i)=>print(i.to_string ()));
+}
+```
+
+#### 异常处理和空值
+
+先写出一个错误空间，说明这是啥大类的错误，里面可以细分。
+
+```vala
+public errordomain DatabaseError {
+	COULDNT_OPEN,
+	EXECUTION_FAILED,
+	PREPARATION_FAILED,
+	BIND_FAILED,
+	INVALID_GAME,
+	NOT_FOUND,
+}
+```
+
+写函数/方法的时候，可以加入 `throws` 关键字，注明会抛出啥错误。里面需要抛出错误的时候，使用 `throw` 语句抛出。下面是一个例子：
+
+```vala
+// 说明这个函数会抛出 DatabaseError 错误
+private void open () throws DatabaseError {
+    int sql_return = Sqlite.Database.open_v2 (NAME_OF_DB, out m_db);
+    if (sql_return != Sqlite.OK) {
+        // 这句话，先新建一个错误类，里面写的是具体内容，然后抛出
+        throw new DatabaseError.COULDNT_OPEN ("Cannot create database: %d, %s\n", sql_return, m_db.errmsg ());
+    }
+}
+```
+
+要捕捉抛出的错误，请使用 try-catch-finally 语句：
+
+```vala
+public void createDatabase () {
+    try {
+        open ();
+        exec (CREATE_FLIGHT_TABLE_QUERY);
+        exec (CREATE_HOTEL_TABLE_QUERY);
+        exec (CREATE_BUS_TABLE_QUERY);
+        exec (CREATE_CUSTOMER_TABLE_QUERY);
+        exec (CREATE_RESERVATION_TABLE_QUERY);
+    // 错误被捕捉到了
+    } catch (DatabaseError e) {
+        stderr.printf ("%s\n", e.message);
+    }
+    // 可以加写一个 finally，finally 总会被运行
+}
+```
+
+Vala 的变量可以设为空值，方法是加一个问号：
+
+```vala
+void main () {
+    // 这句话会报错
+    int a = null;
+    // 这句话不会报错
+	int ? b = null;
+}
+```
+
+我个人认为，适用情况是，如果你不能确保方法确实能返回一个元素，可以使用这个。
+
+```vala
+int ? a () {
+    try {
+        int result;
+        // 我没在摸鱼
+        return result;    
+    } catch (CatchFishBeFoundError e) {
+        return null;
+    }
+}
+```
+
+当然也许不用这么麻烦，这只是一个例子。
+
+#### SQLite 3 库
+
+我之前说过，vala 可以使用 C 库，SQLite 3 就是一个例子。Vala 使用 vapi 文件来引用其他语言的库。
+
+所以说，Vala 的 SQLite 库用起来应该和 C 语言的差不多。不过请注意，Vala 是面向对象的，而 SQLite 的库在引用到 Vala 的时候，做了面向对象的处理。
+
+使用前，引用这个库：
+
+```vala
+using Sqlite;
+```
+
+##### 数据库类
+
+如此定义一个数据库对象：
+
+```vala
+Sqlite.Database m_db;
+```
+
+打开数据库：
+
+```vala
+Sqlite.Database.open_v2 (string path, out Sqlite.Database);
+```
+
+执行语句：
+
+```vala
+m_db.exec (string sql_exec);
+```
+
+##### 数据库声明类
+
+定义方式如下：
+
+```vala
+Sqlite.Statement add_flight;
+```
+
+准备声明：
+
+```vala
+public Sqlite.Statement prepare (string sql) throws DatabaseError {
+    Sqlite.Statement statement;
+    // 加不加 v2 都行，需要 sql 语句字符串，字符串长度，输出到一个 statement 类
+    int sql_result = m_db.prepare_v2 (sql, sql.length, out statement);
+    if (sql_result != Sqlite.OK) {
+        throw new DatabaseError.PREPARATION_FAILED ("Cannot prepare satement for %s: %d, %s\n", sql, sql_result, m_db.errmsg ());
+    }
+    return statement;
+}
+```
+
+绑定声明：
+
+绑定依然有一系列的函数，此处只看绑定字符串
+
+```vala
+private void bind_text (Sqlite.Statement statement, string stmt, string text) throws DatabaseError {
+    // 这是寻找 statement 中 stmt 的位置
+    int index = statement.bind_parameter_index (stmt);
+    if (index <= 0) {
+        throw new DatabaseError.BIND_FAILED ("Could not bind %s: %s not found in the statement %s.\n", text, stmt, statement.sql ());
+    }
+    // 绑定，index 是索引，text 是要绑定的字符串
+    int sql_result = statement.bind_text (index, text);
+
+    if (sql_result != Sqlite.OK) {
+        statement.reset ();
+        throw new DatabaseError.BIND_FAILED ("Could not bind %s: %d, %s\n", text, sql_result, m_db.errmsg ());
+    }
+}
+```
+
+执行声明并清除绑定：
+
+```vala
+private void step (Sqlite.Statement statement) throws DatabaseError {
+    // 执行声明
+    int sql_return = statement.step ();
+    // 清除绑定
+    statement.reset ();
+    if (sql_return != Sqlite.DONE) {
+        throw new DatabaseError.EXECUTION_FAILED ("Execute failed: %d, %s\n", sql_return, m_db.errmsg ());
+    }
+    return;
+}
+```
+
+循环取出返回值：
+
+```vala
+// 摘抄自我的大作业代码
+public HashMap<string, HashSet<string>> ? avaliable () {
+    try {
+        var Graph = new HashMap<string, HashSet<string>> ();
+        // 创建一个声明，这个是一个查询语句
+        Sqlite.Statement get_flight = this.prepare ("SELECT FromCity,ArivCity FROM FLIGHT;");
+        // 我前面说过返回值的事情，Sqlite.ROW
+        while (get_flight.step () == Sqlite.ROW) {
+            string from = get_flight.column_text (0);
+            string to = get_flight.column_text (1);
+            if (!Graph.has_key (from)) {
+                Graph[from] = new HashSet<string> ();
+            }
+            Graph[from].add (to);
+        }
+        return Graph;
+    } catch (DatabaseError e) {
+        stdout.printf (e.message);
+        return null;
+    }
+}
+```
