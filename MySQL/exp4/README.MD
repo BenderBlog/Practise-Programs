@@ -905,12 +905,12 @@ void main () {
 
 ```vala
 public errordomain DatabaseError {
-	COULDNT_OPEN,
-	EXECUTION_FAILED,
-	PREPARATION_FAILED,
-	BIND_FAILED,
-	INVALID_GAME,
-	NOT_FOUND,
+    COULDNT_OPEN,
+    EXECUTION_FAILED,
+    PREPARATION_FAILED,
+    BIND_FAILED,
+    INVALID_GAME,
+    NOT_FOUND,
 }
 ```
 
@@ -953,7 +953,7 @@ void main () {
     // 这句话会报错
     int a = null;
     // 这句话不会报错
-	int ? b = null;
+    int ? b = null;
 }
 ```
 
